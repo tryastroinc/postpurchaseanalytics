@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Classic upsell — Funnel builder</title>
+<link rel="stylesheet" href="assets/styles.css" />
+<link rel="stylesheet" href="assets/canvas-theme.css" />
+</head>
+<body data-page="builder">
+<div class="shell">
+
+  <!-- builder header -->
+  <header class="builder-head">
+    <div class="bh-left">
+      <button class="back-btn" onclick="location.href='funnels.html'" title="Back">←</button>
+      <h1>Classic upsell</h1>
+    </div>
+    <div class="head-controls">
+      <button class="btn">Rename</button>
+      <button class="btn" onclick="location.href='index.html'">View analytics</button>
+      <button class="btn" id="previewFlowBtn">Preview flow</button>
+      <button class="btn">Last 7 days <span class="caret">▾</span></button>
+      <button class="btn primary">Save and next</button>
+    </div>
+  </header>
+
+  <!-- stepper -->
+  <div class="stepper">
+    <div class="step" data-step="triggers">
+      <div class="bar"></div>
+      <div class="st-label"><span class="st-icon">⚡</span> Triggers</div>
+    </div>
+    <div class="step current" data-step="upsells">
+      <div class="bar"></div>
+      <div class="st-label"><span class="st-icon">◇</span> Upsells</div>
+    </div>
+    <div class="step" data-step="typage">
+      <div class="bar"></div>
+      <div class="st-label"><span class="st-icon">☺</span> Thank You Page</div>
+    </div>
+  </div>
+
+  <!-- ============ TRIGGERS (placeholder) ============ -->
+  <section data-step-panel="triggers" class="hidden">
+    <h2 class="section-title">Triggers</h2>
+    <p class="section-sub">Choose which orders enter this funnel.</p>
+    <div class="card">
+      <div class="empty-note">⚙ Placeholder — trigger conditions (products, collections, cart value, customer tags) go here.</div>
+    </div>
+  </section>
+
+  <!-- ============ UPSELLS canvas ============ -->
+  <section data-step-panel="upsells">
+    <h2 class="section-title">Upsells</h2>
+    <p class="section-sub">Create, edit and test your upsell offers.</p>
+
+    <div class="canvas">
+
+      <!-- Upsell 1 (full-width left column) -->
+      <div class="canvas-row">
+        <div class="canvas-col">
+          <p class="slot-label">Upsell 1</p>
+          <div class="offer-card" data-offer="upsell1">
+            <div class="offer-main">
+              <div class="offer-thumb">🖼</div>
+              <div class="offer-body">
+                <div class="offer-name"></div>
+                <div class="offer-meta"></div>
+                <div class="offer-actions">
+                  <button class="btn">✎ Edit offer</button>
+                  <button class="icon-btn" title="Swap product">↻</button>
+                  <button class="icon-btn" title="Delete">🗑</button>
+                </div>
+              </div>
+            </div>
+            <div class="offer-stats"></div>
+            <div class="offer-foot">⚗ Create test</div>
+          </div>
+        </div>
+        <div class="canvas-col"></div>
+      </div>
+
+      <!-- branches -->
+      <div class="branch-row">
+        <span class="branch accepted">Upsell 1 accepted</span>
+        <span class="branch declined">Upsell 1 declined</span>
+      </div>
+
+      <!-- Upsell 2 / Downsell 1 -->
+      <div class="canvas-row">
+        <div class="canvas-col">
+          <p class="slot-label">Upsell 2</p>
+          <div class="offer-card" data-offer="upsell2">
+            <div class="offer-main">
+              <div class="offer-thumb">🖼</div>
+              <div class="offer-body">
+                <div class="offer-name"></div>
+                <div class="offer-meta"></div>
+                <div class="offer-actions">
+                  <button class="btn">✎ Edit offer</button>
+                  <button class="icon-btn" title="Swap product">↻</button>
+                  <button class="icon-btn" title="Delete">🗑</button>
+                </div>
+              </div>
+            </div>
+            <div class="offer-stats"></div>
+            <div class="offer-foot">⚗ Create test</div>
+          </div>
+        </div>
+        <div class="canvas-col">
+          <p class="slot-label">Downsell 1</p>
+          <div class="offer-card" data-offer="downsell1">
+            <div class="offer-main">
+              <div class="offer-thumb">🖼</div>
+              <div class="offer-body">
+                <div class="offer-name"></div>
+                <div class="offer-meta"></div>
+                <div class="offer-actions">
+                  <button class="btn">✎ Edit offer</button>
+                  <button class="icon-btn" title="Swap product">↻</button>
+                  <button class="icon-btn" title="Delete">🗑</button>
+                </div>
+              </div>
+            </div>
+            <div class="offer-stats"></div>
+            <div class="offer-foot">⚗ Create test</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- branches -->
+      <div class="branch-row">
+        <span class="branch accepted">Upsell 2 accepted</span>
+        <span class="branch declined">Upsell 2 declined</span>
+      </div>
+
+      <!-- Upsell 3 / Downsell 2 -->
+      <div class="canvas-row">
+        <div class="canvas-col">
+          <p class="slot-label">Upsell 3</p>
+          <div class="offer-card" data-offer="upsell3">
+            <div class="offer-main">
+              <div class="offer-thumb">📄</div>
+              <div class="offer-body">
+                <div class="offer-name"></div>
+                <div class="offer-meta"></div>
+                <div class="offer-actions">
+                  <button class="btn">✎ Edit offer</button>
+                  <button class="icon-btn" title="Swap product">↻</button>
+                  <button class="icon-btn" title="Delete">🗑</button>
+                </div>
+              </div>
+            </div>
+            <div class="offer-stats"></div>
+            <div class="offer-foot">⚗ Create test</div>
+          </div>
+        </div>
+        <div class="canvas-col">
+          <p class="slot-label">Downsell 2</p>
+          <div class="offer-card" data-offer="downsell2">
+            <div class="offer-main">
+              <div class="offer-thumb">📄</div>
+              <div class="offer-body">
+                <div class="offer-name"></div>
+                <div class="offer-meta"></div>
+                <div class="offer-actions">
+                  <button class="btn">✎ Edit offer</button>
+                  <button class="icon-btn" title="Swap product">↻</button>
+                  <button class="icon-btn" title="Delete">🗑</button>
+                </div>
+              </div>
+            </div>
+            <div class="offer-stats"></div>
+            <div class="offer-foot">⚗ Create test</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="builder-foot">
+      <span class="funnel-active-pill">● Funnel active</span>
+      <label class="switch"><input type="checkbox" checked><span class="track"></span></label>
+      <button class="btn" id="previewFlowBtn2" onclick="document.getElementById('previewFlowBtn').click()">Preview flow</button>
+      <button class="btn primary">Save and next</button>
+    </div>
+  </section>
+
+  <!-- ============ THANK YOU PAGE step ============ -->
+  <section data-step-panel="typage" class="hidden">
+    <h2 class="section-title">Thank You Page</h2>
+    <p class="section-sub">Add offers, reviews, FAQs, and more to complete your customer journey.</p>
+
+    <div class="card">
+      <div class="tyi-row">
+        <div>
+          <div class="t">Customize thank you page</div>
+          <div class="s">Drag and drop widgets to create a beautiful thank you page that converts.</div>
+        </div>
+        <button class="btn">Edit extensions page</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="t" style="font-weight:600">Widgets to place on your storefront</div>
+      <div class="s muted" style="margin:4px 0 12px">
+        These widgets are configured but won't show to customers until you place them on your
+        Thank you page and Order status page in Shopify.
+      </div>
+      <div class="empty-note">🗎 No widgets enabled yet. Configure widgets above, then place them in Shopify.</div>
+    </div>
+
+    <div class="builder-foot">
+      <span class="funnel-active-pill">● Funnel active</span>
+      <label class="switch"><input type="checkbox" checked><span class="track"></span></label>
+      <button class="btn primary">Save and finish</button>
+    </div>
+  </section>
+
+  <!-- ============ PREVIEW FLOW modal ============ -->
+  <div class="modal-backdrop" id="previewModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h2>Preview flow <span class="info-dot" title="Simulates the buyer's post-purchase journey">i</span></h2>
+        <button class="modal-close" data-close-modal>✕</button>
+      </div>
+      <div class="modal-body" style="position:relative">
+
+        <!-- flow map -->
+        <div class="flow-map">
+          <button class="flow-node" aria-current="true">Upsell 1</button>
+          <div class="flow-cols">
+            <span class="flow-pill a">If accepted</span>
+            <span class="flow-pill d">If declined</span>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-cols">
+            <button class="flow-node">Upsell 2</button>
+            <button class="flow-node">Downsell 1</button>
+          </div>
+          <div class="flow-cols">
+            <span class="flow-pill a">If accepted</span>
+            <span class="flow-pill d">If declined</span>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-cols">
+            <button class="flow-node">Upsell 3</button>
+            <button class="flow-node">Downsell 2</button>
+          </div>
+          <div class="spacer"></div>
+          <div class="device-toggle" style="position:static">
+            <button aria-pressed="true" title="Desktop">🖥</button>
+            <button aria-pressed="false" title="Mobile">📱</button>
+          </div>
+        </div>
+
+        <!-- simulated offer page -->
+        <div class="preview-page">
+          <button class="icon-btn pp-edit" title="Edit offer">✎</button>
+          <div class="pp-order" id="ppOrder"></div>
+          <div class="pp-paid"><span class="ok">✓</span> You've paid for your order.</div>
+          <span class="pp-link">View order confirmation ›</span>
+
+          <div class="pp-progress">
+            <span class="node">🛒</span><span class="seg"></span>
+            <span class="node">💲</span><span class="seg"></span>
+            <span class="node">🎁</span><span class="seg todo"></span>
+            <span class="node">✔</span>
+          </div>
+
+          <h3 class="pp-headline" id="ppHeadline"></h3>
+          <p class="pp-copy" id="ppCopy"></p>
+          <div class="pp-timer" id="ppTimer"></div>
+
+          <div class="pp-product">
+            <div class="pp-img">🖼</div>
+            <div class="pp-detail">
+              <h4 class="pp-title" id="ppTitle"></h4>
+              <div class="pp-price">
+                <span class="was" id="ppWas"></span>
+                <span class="now" id="ppNow"></span>
+                <span class="save" id="ppSave"></span>
+                <span class="ship-pill">🚚 Ships Free</span>
+              </div>
+              <div class="pp-urgency" id="ppUrgency"></div>
+              <div class="pp-variant">
+                <span id="ppVariantLabel"></span>
+                <b id="ppVariantValue"></b>
+              </div>
+              <div class="pp-subtotal"><span>Subtotal</span><span id="ppSubtotal"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn">Restart preview</button>
+        <button class="btn" data-close-modal>Close</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="page-footnote"><a href="funnels.html">← Back to funnels</a> · <a href="index.html">Analytics</a></p>
+</div>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Post-purchase funnels — Post-purchase Canvas</title>
+<link rel="stylesheet" href="assets/styles.css" />
+<link rel="stylesheet" href="assets/canvas-theme.css" />
+</head>
+<body data-page="funnel-list">
+<div class="shell">
+
+  <header class="page-head">
+    <h1>Post-purchase funnels <span class="help-dot">?</span></h1>
+    <div class="head-controls">
+      <div class="popover-anchor">
+        <button class="btn" id="dateRangeBtn">🗓 <span id="dateRangeLabel">Last 30 days</span> <span class="caret">▾</span></button>
+        <div class="date-popover" id="datePopover">
+          <div class="presets" id="datePresets"></div>
+          <div class="custom">
+            <input type="text" value="2026-05-23" aria-label="Start date" />
+            <span class="muted">→</span>
+            <input type="text" value="2026-06-21" aria-label="End date" />
+          </div>
+          <div class="actions">
+            <button class="btn" data-close-popover>Cancel</button>
+            <button class="btn primary" data-close-popover>Save</button>
+          </div>
+        </div>
+      </div>
+      <button class="btn">Translations</button>
+      <button class="btn primary">Add funnel <span class="caret" style="color:#bbb">▾</span></button>
+    </div>
+  </header>
+
+  <!-- Smart Funnel banner -->
+  <div class="card">
+    <div class="smart-funnel">
+      <div class="sf-icon">✦</div>
+      <div class="sf-main">
+        <div class="sf-title-row">
+          <b>Smart Funnel</b>
+          <span class="help-dot" style="width:15px;height:15px;font-size:9px">?</span>
+          <span class="badge inactive">● Inactive</span>
+        </div>
+        <div class="sf-tags" id="sfTags"></div>
+      </div>
+      <div class="sf-metrics">
+        <div class="m"><div class="k">RPV (PPU)</div><div class="v" id="sfRpv"></div></div>
+        <div class="m"><div class="k">Conversion</div><div class="v" id="sfConv"></div></div>
+        <div class="m"><div class="k">Visits</div><div class="v" id="sfVisits"></div></div>
+        <div class="m"><div class="k">Revenue</div><div class="v" id="sfRevenue"></div></div>
+      </div>
+      <button class="icon-btn" title="Edit">✎</button>
+      <button class="icon-btn" title="Analytics">📊</button>
+      <button class="btn primary">Enable</button>
+    </div>
+  </div>
+
+  <!-- funnel table -->
+  <div class="card table-card">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding-right:12px">
+      <div class="list-tabs">
+        <button aria-selected="true">All</button>
+        <button aria-selected="false">Active</button>
+        <button aria-selected="false">Inactive</button>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="icon-btn" title="Search and filter">⌕</button>
+        <button class="icon-btn" title="More">⋯</button>
+      </div>
+    </div>
+    <table class="funnel-list">
+      <thead>
+        <tr>
+          <th style="width:32px"></th>
+          <th>Priority ⇅</th>
+          <th>Name</th>
+          <th class="num">RPV (PPU)</th>
+          <th class="num">RPV (TYP)</th>
+          <th class="num">Visits</th>
+          <th class="num">Revenue</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="funnelRows"></tbody>
+    </table>
+  </div>
+
+  <!-- eligibility callout -->
+  <div class="card">
+    <div class="callout">
+      <div>
+        <div class="c-title">Why didn't an offer show for my order?</div>
+        <div class="c-sub" id="eligibleNote"></div>
+      </div>
+      <button class="btn">Details <span class="caret">▾</span></button>
+    </div>
+  </div>
+
+  <p class="page-footnote">Learn more about <a href="#">post-purchase funnels</a></p>
+  <p class="page-footnote"><a href="index.html">← Back to Analytics</a></p>
+</div>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
