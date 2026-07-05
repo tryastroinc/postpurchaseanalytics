@@ -437,11 +437,29 @@
     document.getElementById("ppVariantValue").textContent = P.variantValue;
     document.getElementById("ppSubtotal").textContent = F.money(P.subtotal, 2);
 
-    // flow-map node selection (visual only)
+    // flow-map nodes ↔ offer slots. DOM order of .flow-node matches:
+    const SLOT_ORDER = ["upsell1", "upsell2", "downsell1", "upsell3", "downsell2"];
     const nodes = modal.querySelectorAll(".flow-node");
-    nodes.forEach((n) =>
-      n.addEventListener("click", () => nodes.forEach((x) => x.setAttribute("aria-current", x === n)))
-    );
+
+    function showSlot(slot) {
+      const i = Math.max(0, SLOT_ORDER.indexOf(slot));
+      nodes.forEach((x, k) => x.setAttribute("aria-current", String(k === i)));
+      // swap the previewed product to the selected slot's offer
+      const offer = (B.offers || {})[SLOT_ORDER[i]];
+      if (offer && offer.product) document.getElementById("ppTitle").textContent = offer.product;
+    }
+
+    nodes.forEach((n, i) => n.addEventListener("click", () => showSlot(SLOT_ORDER[i])));
+
+    // "View offer" on a canvas card → open the preview focused on that slot
+    document.querySelectorAll("[data-offer]").forEach((card) => {
+      const viewBtn = card.querySelector(".offer-actions .btn");
+      if (viewBtn)
+        viewBtn.addEventListener("click", () => {
+          showSlot(card.dataset.offer);
+          modal.classList.add("open");
+        });
+    });
 
     // device toggle (visual only)
     const devBtns = document.querySelectorAll(".device-toggle button");
