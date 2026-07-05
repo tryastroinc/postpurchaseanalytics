@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Classic upsell — Funnel builder</title>
+<script src="assets/theme.js"></script>
 <link rel="stylesheet" href="assets/styles.css" />
 <link rel="stylesheet" href="assets/canvas-theme.css" />
-<script src="assets/theme.js"></script>
 </head>
 <body data-page="builder">
 <script src="assets/sidebar.js" defer></script>
@@ -23,7 +23,10 @@
       <button class="btn">Rename</button>
       <button class="btn" onclick="location.href='index.html'">View analytics</button>
       <button class="btn" id="previewFlowBtn">Preview flow</button>
-      <button class="btn">Last 7 days <span class="caret">▾</span></button>
+      <div class="popover-anchor">
+        <button class="btn" id="dateRangeBtn">🗓 <span id="dateRangeLabel">Last 30 days</span> <span class="caret">▾</span></button>
+        <div class="date-popover" id="datePopover"></div>
+      </div>
       <button class="btn primary">Save</button>
     </div>
   </header>
@@ -143,7 +146,6 @@
 
     <div class="builder-foot">
       <span class="funnel-active-pill">● Funnel active</span>
-      <label class="switch"><input type="checkbox" checked><span class="track"></span></label>
       <button class="btn" id="previewFlowBtn2" onclick="document.getElementById('previewFlowBtn').click()">Preview flow</button>
       <button class="btn primary">Save</button>
     </div>
@@ -232,6 +234,7 @@
 </div>
 
 <script src="assets/data.js"></script>
+<script src="assets/datepicker.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>

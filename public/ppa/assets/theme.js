@@ -20,6 +20,9 @@
   var theme = fromUrl || (saved === "light" || saved === "dark" ? saved : "dark");
   if (fromUrl) { try { localStorage.setItem(KEY, fromUrl); } catch (e) {} }
   document.documentElement.dataset.theme = theme;
+  // paint the root immediately so navigation never flashes the wrong
+  // theme while stylesheets load (this script runs before the CSS links)
+  document.documentElement.style.background = theme === "dark" ? "#1a1a1a" : "#f9f9f7";
 
   var SUN =
     '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">' +

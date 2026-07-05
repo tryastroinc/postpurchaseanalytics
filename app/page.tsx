@@ -19,17 +19,26 @@ export default async function HomePage() {
   }
 
   return (
-    <iframe
-      src="/ppa/funnels.html"
-      title="Post-purchase Analytics"
-      style={{
-        position: "fixed",
-        inset: 0,
-        width: "100vw",
-        height: "100vh",
-        border: "none",
-        background: "#1a1a1a",
-      }}
-    />
+    <>
+      {/* paint the wrapper in the saved theme before the iframe loads, so
+          light-mode users don't get a dark flash (and vice versa) */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `try{var t=localStorage.getItem("ppa-theme");document.documentElement.style.background=t==="light"?"#f9f9f7":"#1a1a1a";}catch(e){}`,
+        }}
+      />
+      <iframe
+        src="/ppa/funnels.html"
+        title="Post-purchase Analytics"
+        style={{
+          position: "fixed",
+          inset: 0,
+          width: "100vw",
+          height: "100vh",
+          border: "none",
+          background: "transparent",
+        }}
+      />
+    </>
   );
 }
