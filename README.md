@@ -7,6 +7,35 @@ an authed API that queries CheckoutChamp.
 
 Extracted from the main Astro funnel repo so it deploys and evolves on its own.
 
+## Canvas umbrella (concept — skeleton only)
+
+This board lives **under the Canvas umbrella** (`tryastro.org/canvas`, the
+internal split-test board). Canvas is the *body* — every experiment across the
+whole funnel; this board is the *post-purchase leg* of whichever variant you're
+examining. Nothing in this repo touches the canvas codebase; the connection is
+a URL contract in three layers:
+
+1. **Navigation** — the sidebar brands as Canvas with a "Canvas board ↗" link
+   up, and this app's pages grouped under a "Post-purchase" section. Once the
+   canvas host proxies `tryastro.org/canvas/post-purchase` → this deployment
+   (Next.js rewrite on the canvas side), that link becomes a sibling route and
+   auth can share the domain cookie.
+2. **Context** — deep links carry the examination context as query params, so
+   a canvas card can open this board pre-filtered:
+   `?variant=<id>&range=30&start=YYYY-MM-DD&end=YYYY-MM-DD&compare=previous_period&theme=dark`
+   All params persist client-side (`sessionStorage`) and survive navigation.
+3. **Data** — every param is already forwarded to `/api/analytics`
+   (`range`, `start`/`end`, `compare`, `variant`). Backend INTEGRATION POINTS,
+   in order of value:
+   - `variant`: tag CheckoutChamp transactions by test variant and scope every
+     metric to it; return `variants: [{id, label}]` so the header selector
+     lists real tests. This is what lets canvas show a per-variant
+     post-purchase card, and this board slice per test.
+   - `compare`: return `deltas: {metricKey: percentChange}` for the compare
+     window (renders as ↑/↓ badges automatically).
+   - `start`/`end`: honour exact custom calendar ranges (currently only preset
+     day windows are supported).
+
 ## Stack
 
 - Next.js 16 (App Router) + TypeScript

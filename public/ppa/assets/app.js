@@ -77,6 +77,28 @@
     location.reload(); // data.js refetches with the compare window
   }, compareIdx);
 
+  // Variant — canvas split-test context (SKELETON). Canvas is the body, this
+  // board is the post-purchase leg of whichever variant you're examining.
+  // Options come from APP_DATA.variants ([{id, label}]) once the backend tags
+  // transactions by test variant (INTEGRATION POINT); until then only
+  // "All variants" is listed. Deep-linkable: ?variant=<id> from a canvas card
+  // lands here pre-filtered (data.js persists it and sends &variant= to the API).
+  const variantBtn = document.getElementById("variantBtn");
+  if (variantBtn) {
+    let curVariant = "all";
+    try { curVariant = sessionStorage.getItem("ppaVariant") || "all"; } catch (e) {}
+    const variantOpts = [{ id: "all", label: "All variants" }].concat(
+      ((D && D.variants) || []).filter((v) => v && v.id && v.id !== "all")
+    );
+    const vIdx = Math.max(0, variantOpts.findIndex((v) => v.id === curVariant));
+    setBtnLabel(variantBtn, "⑂ " + variantOpts[vIdx].label);
+    makeMenu(variantBtn, variantOpts.map((v) => v.label), (label) => {
+      const picked = variantOpts.find((v) => v.label === label) || variantOpts[0];
+      try { sessionStorage.setItem("ppaVariant", picked.id); } catch (e) {}
+      location.reload(); // data.js refetches scoped to the variant
+    }, vIdx);
+  }
+
   // % up / % down badges. Reads APP_DATA.deltas[key] (percent change vs the
   // compare window); "–" when compare is off or the key is missing.
   function renderDeltas() {

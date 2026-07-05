@@ -129,6 +129,18 @@
       const cm = sessionStorage.getItem("ppaCompare");
       if (cm && cm !== "none") compare = "&compare=" + cm;
     } catch (e) {}
+    // Canvas split-test variant (SKELETON). ?variant=<id> in the URL (e.g. a
+    // deep link from a canvas card) wins and persists; the API should scope
+    // every metric to that variant once transactions are tagged by test —
+    // INTEGRATION POINT. It should also return `variants` ([{id, label}])
+    // so the header selector can list them.
+    let variant = "";
+    try {
+      const fromUrl = new URLSearchParams(location.search).get("variant");
+      if (fromUrl) sessionStorage.setItem("ppaVariant", fromUrl);
+      const v = sessionStorage.getItem("ppaVariant");
+      if (v && v !== "all") variant = "&variant=" + encodeURIComponent(v);
+    } catch (e) {}
     return fetch("/api/analytics?range=" + range + custom + compare, { credentials: "same-origin", cache: "no-store" })
       .then((r) => {
         if (!r.ok) throw new Error("HTTP " + r.status);
