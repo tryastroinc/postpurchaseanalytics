@@ -4,13 +4,17 @@
    Keeps the vendored framework files pristine — all TryAstro-canvas
    colour matching lives here.
 
+   Every rule is scoped under html[data-theme="dark"]; light mode is
+   simply the base styles.css palette. assets/theme.js sets the
+   attribute before paint and wires the [data-theme-toggle] buttons.
+
    Canvas tokens (app/canvas/CanvasBoard.tsx → themeTokens("dark")):
      bg #1a1a1a · cardBg #2e2e2e · text #fff · border rgba(255,255,255,0.08)
      subtleText rgba(255,255,255,0.55) · accent #fff · good #4ade80 · bad #f87171
    The validated categorical series colours (--s-*) are intentionally kept.
    ============================================================ */
 
-:root {
+html[data-theme="dark"] {
   --page: #1a1a1a;
   --surface: #2e2e2e;
   --ink-primary: #ffffff;
@@ -24,73 +28,74 @@
 }
 
 /* ---- neutral hovers / subtle fills (were light greys) ---- */
-.btn:hover,
-.chip,
-.date-popover .preset-row:hover,
-.offer-foot:hover,
-.back-btn:hover { background: rgba(255, 255, 255, 0.06); }
+html[data-theme="dark"] .btn:hover,
+html[data-theme="dark"] .chip,
+html[data-theme="dark"] .date-popover .preset-row:hover,
+html[data-theme="dark"] .offer-foot:hover,
+html[data-theme="dark"] .back-btn:hover { background: rgba(255, 255, 255, 0.06); }
 
-.tabbar button[aria-selected="true"],
-.list-tabs button[aria-selected="true"],
-.device-toggle button[aria-pressed="true"],
-.step .st-icon { background: rgba(255, 255, 255, 0.10); }
+html[data-theme="dark"] .tabbar button[aria-selected="true"],
+html[data-theme="dark"] .list-tabs button[aria-selected="true"],
+html[data-theme="dark"] .device-toggle button[aria-pressed="true"],
+html[data-theme="dark"] .step .st-icon { background: rgba(255, 255, 255, 0.10); }
 
-.tag,
-.meta-pill { background: rgba(255, 255, 255, 0.07); }
+html[data-theme="dark"] .tag,
+html[data-theme="dark"] .meta-pill { background: rgba(255, 255, 255, 0.07); }
 
-.offer-thumb,
-.pp-img { background: rgba(255, 255, 255, 0.06); }
+html[data-theme="dark"] .offer-thumb,
+html[data-theme="dark"] .pp-img { background: rgba(255, 255, 255, 0.06); }
 
-.offer-foot { background: rgba(255, 255, 255, 0.03); }
+html[data-theme="dark"] .offer-foot { background: rgba(255, 255, 255, 0.03); }
 
-table.data th,
-table.data th:first-child { background: #2a2a2a; }
+html[data-theme="dark"] table.data th,
+html[data-theme="dark"] table.data th:first-child { background: #2a2a2a; }
+html[data-theme="dark"] table.data td:first-child { background: var(--surface); }
 
 /* ---- accent (canvas accent is white → dark text on white) ---- */
-.btn.primary {
+html[data-theme="dark"] .btn.primary {
   background: #ffffff;
   color: #1a1a1a;
   border-color: #ffffff;
 }
-.btn.primary:hover { background: #e6e6e6; }
-.step.current .bar { background: #ffffff; }
-.step.current .st-icon,
-.flow-node[aria-current="true"] {
+html[data-theme="dark"] .btn.primary:hover { background: #e6e6e6; }
+html[data-theme="dark"] .step.current .bar { background: #ffffff; }
+html[data-theme="dark"] .step.current .st-icon,
+html[data-theme="dark"] .flow-node[aria-current="true"] {
   background: #ffffff;
   color: #1a1a1a;
   border-color: #ffffff;
 }
-.type-list input[type="checkbox"] { accent-color: #ffffff; }
+html[data-theme="dark"] .type-list input[type="checkbox"] { accent-color: #ffffff; }
 
 /* ---- toggle: off = subtle, on = good/green ---- */
-.switch .track { background: rgba(255, 255, 255, 0.20); }
-.switch input:checked + .track { background: var(--good); }
+html[data-theme="dark"] .switch .track { background: rgba(255, 255, 255, 0.20); }
+html[data-theme="dark"] .switch input:checked + .track { background: var(--good); }
 
 /* ---- semantic: good (green) fills ---- */
-.badge.active,
-.branch.accepted,
-.flow-pill.a { background: rgba(74, 222, 128, 0.15); }
-.funnel-active-pill { background: rgba(74, 222, 128, 0.12); }
+html[data-theme="dark"] .badge.active,
+html[data-theme="dark"] .branch.accepted,
+html[data-theme="dark"] .flow-pill.a { background: rgba(74, 222, 128, 0.15); }
+html[data-theme="dark"] .funnel-active-pill { background: rgba(74, 222, 128, 0.12); }
 
 /* ---- semantic: bad (red) fills ---- */
-.branch.declined,
-.flow-pill.d,
-.pp-timer {
+html[data-theme="dark"] .branch.declined,
+html[data-theme="dark"] .flow-pill.d,
+html[data-theme="dark"] .pp-timer {
   background: rgba(248, 113, 113, 0.15);
   color: #f87171;
 }
 
 /* ---- semantic: warn (amber) ---- */
-.badge.inactive {
+html[data-theme="dark"] .badge.inactive {
   background: rgba(234, 179, 8, 0.15);
   color: #eab308;
 }
 
 /* ---- links / misc ---- */
-.page-footnote a { color: #6ea8ff; }
+html[data-theme="dark"] .page-footnote a { color: #6ea8ff; }
 
 /* ---- hide the horizontal scrollbar on scrollable tables (scroll still works
-        via trackpad / shift-wheel) ---- */
+        via trackpad / shift-wheel) — theme-neutral ---- */
 .table-scroll {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* old Edge/IE */
