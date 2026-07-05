@@ -50,6 +50,10 @@
 
   window.setPpaTheme = function (t) {
     document.documentElement.dataset.theme = t;
+    // keep the anti-flash inline paint in sync with the live toggle,
+    // otherwise the old color lingers wherever the body doesn't cover
+    document.documentElement.style.background = t === "dark" ? "#1a1a1a" : "#f9f9f7";
+    document.documentElement.style.colorScheme = t;
     try { localStorage.setItem(KEY, t); } catch (e) {}
     paint();
   };
