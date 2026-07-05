@@ -15,8 +15,8 @@
   };
 
   var ITEMS = [
-    { href: "index.html", label: "Analytics", icon: "analytics", pages: ["analytics"] },
     { href: "funnels.html", label: "Funnels", icon: "funnels", pages: ["funnel-list", "builder"] },
+    { href: "index.html", label: "Analytics", icon: "analytics", pages: ["analytics"] },
   ];
 
   var page = document.body.dataset.page;
