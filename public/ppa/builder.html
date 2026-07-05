@@ -23,37 +23,12 @@
       <button class="btn" onclick="location.href='index.html'">View analytics</button>
       <button class="btn" id="previewFlowBtn">Preview flow</button>
       <button class="btn">Last 7 days <span class="caret">▾</span></button>
-      <button class="btn primary">Save and next</button>
+      <button class="btn primary">Save</button>
     </div>
   </header>
 
-  <!-- stepper -->
-  <div class="stepper">
-    <div class="step" data-step="triggers">
-      <div class="bar"></div>
-      <div class="st-label"><span class="st-icon">⚡</span> Triggers</div>
-    </div>
-    <div class="step current" data-step="upsells">
-      <div class="bar"></div>
-      <div class="st-label"><span class="st-icon">◇</span> Upsells</div>
-    </div>
-    <div class="step" data-step="typage">
-      <div class="bar"></div>
-      <div class="st-label"><span class="st-icon">☺</span> Thank You Page</div>
-    </div>
-  </div>
-
-  <!-- ============ TRIGGERS (placeholder) ============ -->
-  <section data-step-panel="triggers" class="hidden">
-    <h2 class="section-title">Triggers</h2>
-    <p class="section-sub">Choose which orders enter this funnel.</p>
-    <div class="card">
-      <div class="empty-note">⚙ Placeholder — trigger conditions (products, collections, cart value, customer tags) go here.</div>
-    </div>
-  </section>
-
   <!-- ============ UPSELLS canvas ============ -->
-  <section data-step-panel="upsells">
+  <section>
     <h2 class="section-title">Upsells</h2>
     <p class="section-sub">Create, edit and test your upsell offers.</p>
 
@@ -184,38 +159,7 @@
       <span class="funnel-active-pill">● Funnel active</span>
       <label class="switch"><input type="checkbox" checked><span class="track"></span></label>
       <button class="btn" id="previewFlowBtn2" onclick="document.getElementById('previewFlowBtn').click()">Preview flow</button>
-      <button class="btn primary">Save and next</button>
-    </div>
-  </section>
-
-  <!-- ============ THANK YOU PAGE step ============ -->
-  <section data-step-panel="typage" class="hidden">
-    <h2 class="section-title">Thank You Page</h2>
-    <p class="section-sub">Add offers, reviews, FAQs, and more to complete your customer journey.</p>
-
-    <div class="card">
-      <div class="tyi-row">
-        <div>
-          <div class="t">Customize thank you page</div>
-          <div class="s">Drag and drop widgets to create a beautiful thank you page that converts.</div>
-        </div>
-        <button class="btn">Edit extensions page</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="t" style="font-weight:600">Widgets to place on your storefront</div>
-      <div class="s muted" style="margin:4px 0 12px">
-        These widgets are configured but won't show to customers until you place them on your
-        Thank you page and Order status page in Shopify.
-      </div>
-      <div class="empty-note">🗎 No widgets enabled yet. Configure widgets above, then place them in Shopify.</div>
-    </div>
-
-    <div class="builder-foot">
-      <span class="funnel-active-pill">● Funnel active</span>
-      <label class="switch"><input type="checkbox" checked><span class="track"></span></label>
-      <button class="btn primary">Save and finish</button>
+      <button class="btn primary">Save</button>
     </div>
   </section>
 

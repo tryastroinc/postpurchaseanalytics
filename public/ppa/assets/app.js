@@ -20,20 +20,16 @@
   function makeMenu(btn, items, onPick) {
     if (!btn) return;
     const menu = document.createElement("div");
-    menu.style.cssText =
-      "position:absolute;z-index:60;min-width:180px;background:#2e2e2e;border:1px solid rgba(255,255,255,0.12);" +
-      "border-radius:10px;padding:6px;box-shadow:0 12px 30px rgba(0,0,0,0.5);display:none;font-size:13px";
+    menu.className = "menu-popover"; // styled like the date picker (theme-aware)
     document.body.appendChild(menu);
-    items.forEach((label) => {
+    items.forEach((label, idx) => {
       const row = document.createElement("button");
+      row.type = "button";
       row.textContent = label;
-      row.style.cssText =
-        "display:block;width:100%;text-align:left;background:transparent;border:none;color:#fff;" +
-        "padding:9px 10px;border-radius:7px;cursor:pointer;font-size:13px";
-      row.addEventListener("mouseenter", () => (row.style.background = "rgba(255,255,255,0.08)"));
-      row.addEventListener("mouseleave", () => (row.style.background = "transparent"));
+      if (idx === 0) row.classList.add("active"); // default selection
       row.addEventListener("click", (e) => {
         e.stopPropagation();
+        menu.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === row));
         menu.style.display = "none";
         onPick(label);
       });
@@ -293,19 +289,6 @@
      ============================================================ */
   if (page === "funnel-list") {
     const L = D.funnelList;
-    const sf = L.smartFunnel;
-    document.getElementById("sfTags").textContent = "";
-    sf.tags.forEach((t) => {
-      const s = document.createElement("span");
-      s.className = "tag";
-      s.textContent = t;
-      document.getElementById("sfTags").appendChild(s);
-    });
-    const setText = (id, v) => (document.getElementById(id).textContent = v);
-    setText("sfRpv", F.money(sf.rpvPPU, 2));
-    setText("sfConv", sf.conversion.toFixed(2) + "%");
-    setText("sfVisits", F.int(sf.visits));
-    setText("sfRevenue", F.money(sf.revenue, 2));
 
     const tbody = document.getElementById("funnelRows");
     L.rows.forEach((r) => {
@@ -342,17 +325,13 @@
       act.innerHTML = `
         <div class="row-actions">
           <button class="icon-btn" title="Edit" onclick="location.href='builder.html'">✎</button>
-          <button class="icon-btn" title="Duplicate">⧉</button>
           <button class="icon-btn" title="Analytics" onclick="location.href='index.html'">📊</button>
-          <button class="icon-btn" title="Delete">🗑</button>
           <label class="switch"><input type="checkbox" ${r.active ? "checked" : ""}><span class="track"></span></label>
         </div>`;
 
       tr.append(cbTd, pri, name, rpv, rpvT, visits, rev, act);
       tbody.appendChild(tr);
     });
-
-    document.getElementById("eligibleNote").textContent = L.eligibleNote;
 
     const listTabs = document.querySelectorAll(".list-tabs button");
     listTabs.forEach((t) =>
@@ -386,17 +365,6 @@
         `<span>🛒 <b>${F.money(o.rpv, 2)}/visit</b></span>` +
         `<span>↻ <b>${o.conversion.toFixed(2)}%</b></span>`;
     });
-
-    // step switching (Triggers / Upsells / Thank You Page)
-    const steps = document.querySelectorAll(".stepper .step");
-    steps.forEach((s) =>
-      s.addEventListener("click", () => {
-        steps.forEach((x) => x.classList.toggle("current", x === s));
-        document.querySelectorAll("[data-step-panel]").forEach((p) =>
-          p.classList.toggle("hidden", p.dataset.stepPanel !== s.dataset.step)
-        );
-      })
-    );
 
     // preview flow modal (deep-linkable via builder.html#preview)
     const modal = document.getElementById("previewModal");

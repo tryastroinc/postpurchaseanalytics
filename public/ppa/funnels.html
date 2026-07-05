@@ -19,34 +19,8 @@
         <button class="btn" id="dateRangeBtn">🗓 <span id="dateRangeLabel">Last 30 days</span> <span class="caret">▾</span></button>
         <div class="date-popover" id="datePopover"></div>
       </div>
-      <button class="btn">Translations</button>
-      <button class="btn primary">Add funnel <span class="caret" style="color:#bbb">▾</span></button>
     </div>
   </header>
-
-  <!-- Smart Funnel banner -->
-  <div class="card">
-    <div class="smart-funnel">
-      <div class="sf-icon">✦</div>
-      <div class="sf-main">
-        <div class="sf-title-row">
-          <b>Smart Funnel</b>
-          <span class="help-dot" style="width:15px;height:15px;font-size:9px">?</span>
-          <span class="badge inactive">● Inactive</span>
-        </div>
-        <div class="sf-tags" id="sfTags"></div>
-      </div>
-      <div class="sf-metrics">
-        <div class="m"><div class="k">RPV (PPU)</div><div class="v" id="sfRpv"></div></div>
-        <div class="m"><div class="k">Conversion</div><div class="v" id="sfConv"></div></div>
-        <div class="m"><div class="k">Visits</div><div class="v" id="sfVisits"></div></div>
-        <div class="m"><div class="k">Revenue</div><div class="v" id="sfRevenue"></div></div>
-      </div>
-      <button class="icon-btn" title="Edit">✎</button>
-      <button class="icon-btn" title="Analytics">📊</button>
-      <button class="btn primary">Enable</button>
-    </div>
-  </div>
 
   <!-- funnel table -->
   <div class="card table-card">
@@ -76,17 +50,6 @@
       </thead>
       <tbody id="funnelRows"></tbody>
     </table>
-  </div>
-
-  <!-- eligibility callout -->
-  <div class="card">
-    <div class="callout">
-      <div>
-        <div class="c-title">Why didn't an offer show for my order?</div>
-        <div class="c-sub" id="eligibleNote"></div>
-      </div>
-      <button class="btn">Details <span class="caret">▾</span></button>
-    </div>
   </div>
 
   <p class="page-footnote">Learn more about <a href="#">post-purchase funnels</a></p>

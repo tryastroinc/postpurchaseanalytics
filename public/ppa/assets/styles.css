@@ -171,6 +171,10 @@ a { color: inherit; }
 .card + .card, .grid + .card, .card + .grid { margin-top: 16px; }
 
 .grid { display: grid; gap: 16px; }
+/* the sibling-margin rule above must not leak into grid cells —
+   without this, the 2nd card in a grid row sits 16px lower */
+.grid > .card { margin-top: 0 !important; }
+.funnels-layout + .grid { margin-top: 16px; }
 .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
 .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
 @media (max-width: 860px) {
@@ -472,6 +476,39 @@ select.select {
   gap: 8px;
   padding: 10px 12px;
   border-top: 1px solid var(--grid);
+}
+
+/* ---------- header dropdown menus (devices / compare) ----------
+   Same visual language as the date picker. */
+.menu-popover {
+  position: absolute;
+  z-index: 60;
+  min-width: 190px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 12px 40px rgba(11, 11, 11, 0.16);
+  display: none;
+}
+.menu-popover button {
+  display: block;
+  width: 100%;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  background: none;
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  color: var(--ink-secondary);
+}
+.menu-popover button:hover { background: rgba(42, 120, 214, 0.08); color: var(--ink-primary); }
+.menu-popover button.active {
+  background: rgba(42, 120, 214, 0.12);
+  color: #2a78d6;
+  font-weight: 600;
 }
 
 /* ---------- date-range picker (Shopify-style) ---------- */
