@@ -231,7 +231,9 @@ body.with-sidebar { padding-left: 216px; }
 .grid { display: grid; gap: 16px; }
 /* the sibling-margin rule above must not leak into grid cells —
    without this, the 2nd card in a grid row sits 16px lower */
-.grid > .card { margin-top: 0 !important; }
+.grid > .card,
+.side-stack > .card,
+.funnels-layout > .card { margin-top: 0 !important; }
 .funnels-layout + .grid { margin-top: 16px; }
 .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
 .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
