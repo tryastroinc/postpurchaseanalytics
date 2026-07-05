@@ -110,7 +110,18 @@
 
   window.loadAppData = function () {
     const range = getRange();
-    return fetch("/api/analytics?range=" + range, { credentials: "same-origin", cache: "no-store" })
+    // Custom calendar range from the date picker ("YYYY-MM-DD,YYYY-MM-DD").
+    // INTEGRATION POINT: /api/analytics currently only honours `range` (days);
+    // when it learns start/end these params are already being sent.
+    let custom = "";
+    try {
+      const c = sessionStorage.getItem("ppaRangeCustom");
+      if (c && /^\d{4}-\d{2}-\d{2},\d{4}-\d{2}-\d{2}$/.test(c)) {
+        const [s, e] = c.split(",");
+        custom = "&start=" + s + "&end=" + e;
+      }
+    } catch (e) {}
+    return fetch("/api/analytics?range=" + range + custom, { credentials: "same-origin", cache: "no-store" })
       .then((r) => {
         if (!r.ok) throw new Error("HTTP " + r.status);
         return r.json();

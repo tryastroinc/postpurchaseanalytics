@@ -10,45 +10,8 @@
   const F = window.APP_FMT;
   const page = document.body.dataset.page;
 
-  /* ---------- shared: date-range popover ---------- */
-  const PRESET_DAYS = { "Last 7 days": 7, "Last 30 days": 30, "Last 60 days": 60, "Last 90 days": 90, "Last 365 days": 365 };
-  const dateBtn = document.getElementById("dateRangeBtn");
-  const datePopover = document.getElementById("datePopover");
-  if (dateBtn && datePopover) {
-    const presets = Object.keys(PRESET_DAYS);
-    const wrap = document.getElementById("datePresets");
-    presets.forEach((p) => {
-      const b = document.createElement("button");
-      b.className = "preset-row";
-      const t = document.createElement("span");
-      t.textContent = "🗓 " + p;
-      b.appendChild(t);
-      if (p === D.dateRange.label) {
-        const c = document.createElement("span");
-        c.className = "check";
-        c.textContent = "✓";
-        b.appendChild(c);
-      }
-      b.addEventListener("click", () => {
-        document.getElementById("dateRangeLabel").textContent = p;
-        datePopover.classList.remove("open");
-        // Persist the chosen range and reload — data.js refetches /api/analytics
-        // for the new window (a full reload avoids re-render race conditions).
-        try { sessionStorage.setItem("ppaRange", String(PRESET_DAYS[p] || 30)); } catch (e) {}
-        location.reload();
-      });
-      wrap.appendChild(b);
-    });
-    dateBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      datePopover.classList.toggle("open");
-    });
-    datePopover.addEventListener("click", (e) => e.stopPropagation());
-    datePopover.querySelectorAll("[data-close-popover]").forEach((b) =>
-      b.addEventListener("click", () => datePopover.classList.remove("open"))
-    );
-    document.addEventListener("click", () => datePopover.classList.remove("open"));
-  }
+  /* Date-range popover now lives in assets/datepicker.js (Shopify-style
+     dual-month calendar). It owns open/close, presets, and persistence. */
 
   /* ---------- shared: lightweight dropdown menu (devices / compare) + export ----
      A minimal popover anchored under a header button. CC carries no per-device
