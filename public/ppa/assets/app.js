@@ -389,12 +389,15 @@
      BUILDER PAGE
      ============================================================ */
   if (page === "builder") {
-    const B = D.builder;
+    const B = (D && D.builder) || {};
+    B.offers = B.offers || {};
+    B.preview = B.preview || {};
 
-    // fill offer cards
+    // fill offer cards — an unconnected slot still shows zeroed analytics,
+    // never a blank card
+    const EMPTY_OFFER = { product: "Not connected yet", meta: [], views: 0, revenue: 0, rpv: 0, conversion: 0 };
     document.querySelectorAll("[data-offer]").forEach((card) => {
-      const o = B.offers[card.dataset.offer];
-      if (!o) return;
+      const o = Object.assign({}, EMPTY_OFFER, B.offers[card.dataset.offer] || {});
       card.querySelector(".offer-name").textContent = o.product;
       const meta = card.querySelector(".offer-meta");
       const icons = ["◐", "🚚", "⏱", "🛒"];

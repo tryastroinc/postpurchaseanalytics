@@ -892,7 +892,27 @@ table.funnel-list td.num, table.funnel-list th.num { text-align: right; font-var
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
-  padding: 18px 0;
+  padding: 34px 0 22px;
+  position: relative;
+}
+/* connectors: the parent card (left column) forks to BOTH children —
+   a stub drops out of the parent, a horizontal rail spans between the
+   column centers, and each branch pill hangs off the rail */
+.branch-row::after {
+  content: "";
+  position: absolute;
+  left: calc(25% - 10px);
+  top: 0;
+  height: 14px;
+  border-left: 1.5px solid var(--baseline);
+}
+.branch-row::before {
+  content: "";
+  position: absolute;
+  left: calc(25% - 10px);
+  right: calc(25% - 10px);
+  top: 14px;
+  border-top: 1.5px solid var(--baseline);
 }
 .branch {
   justify-self: center;
@@ -901,6 +921,14 @@ table.funnel-list td.num, table.funnel-list th.num { text-align: right; font-var
   border-radius: 999px;
   padding: 3px 12px;
   position: relative;
+}
+.branch::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  height: 20px;
+  border-left: 1.5px solid var(--baseline);
 }
 .branch::after {
   content: "↓";
