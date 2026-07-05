@@ -102,6 +102,37 @@ a { color: inherit; }
 .btn .caret { font-size: 10px; color: var(--ink-muted); }
 .btn.icon-only { padding: 6px 8px; }
 
+/* ---------- theme switch (sun/moon pill) ---------- */
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px;
+  box-shadow: var(--shadow-card);
+}
+.theme-switch button {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-muted);
+  transition: background 0.15s, color 0.15s;
+}
+.theme-switch button:hover { color: var(--ink-primary); }
+.theme-switch button[aria-pressed="true"] {
+  background: #2a78d6;
+  color: #fff;
+}
+
 /* ---------- tab bar ---------- */
 .tabbar {
   background: var(--surface);
