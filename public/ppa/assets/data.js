@@ -121,7 +121,15 @@
         custom = "&start=" + s + "&end=" + e;
       }
     } catch (e) {}
-    return fetch("/api/analytics?range=" + range + custom, { credentials: "same-origin", cache: "no-store" })
+    // Compare window (none | previous_period | previous_year). When set, the
+    // API should also return a `deltas` map ({ metricKey: percentChange }) —
+    // INTEGRATION POINT; the UI renders APP_DATA.deltas automatically.
+    let compare = "";
+    try {
+      const cm = sessionStorage.getItem("ppaCompare");
+      if (cm && cm !== "none") compare = "&compare=" + cm;
+    } catch (e) {}
+    return fetch("/api/analytics?range=" + range + custom + compare, { credentials: "same-origin", cache: "no-store" })
       .then((r) => {
         if (!r.ok) throw new Error("HTTP " + r.status);
         return r.json();

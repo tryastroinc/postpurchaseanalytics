@@ -17,7 +17,7 @@
      A minimal popover anchored under a header button. CC carries no per-device
      or comparison data, so these filter the LABEL/UI; Export downloads a CSV of
      the data currently loaded. */
-  function makeMenu(btn, items, onPick) {
+  function makeMenu(btn, items, onPick, activeIndex = 0) {
     if (!btn) return;
     const menu = document.createElement("div");
     menu.className = "menu-popover"; // styled like the date picker (theme-aware)
@@ -26,7 +26,7 @@
       const row = document.createElement("button");
       row.type = "button";
       row.textContent = label;
-      if (idx === 0) row.classList.add("active"); // default selection
+      if (idx === activeIndex) row.classList.add("active");
       row.addEventListener("click", (e) => {
         e.stopPropagation();
         menu.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === row));
@@ -62,10 +62,39 @@
   makeMenu(document.getElementById("deviceFilterBtn"), ["All devices", "Desktop", "Mobile", "Tablet"], (v) =>
     setBtnLabel(document.getElementById("deviceFilterBtn"), "⌗ " + v)
   );
-  // Compare — UI selection (comparison overlays not yet wired).
-  makeMenu(document.getElementById("compareBtn"), ["Compare: None", "Previous period", "Previous year"], (v) =>
-    setBtnLabel(document.getElementById("compareBtn"), "⧉ " + (v === "Compare: None" ? "Compare: None" : "Compare: " + v))
-  );
+  // Compare — drives the % deltas next to every metric. Choice persists across
+  // pages; data.js forwards it as &compare= so the API can return APP_DATA.deltas
+  // (a { key: percentChange } map — INTEGRATION POINT until backend computes it).
+  const COMPARE_OPTS = ["Compare: None", "Previous period", "Previous year"];
+  const COMPARE_KEYS = { "Compare: None": "none", "Previous period": "previous_period", "Previous year": "previous_year" };
+  let compareMode = "none";
+  try { compareMode = sessionStorage.getItem("ppaCompare") || "none"; } catch (e) {}
+  const compareIdx = Math.max(0, Object.values(COMPARE_KEYS).indexOf(compareMode));
+  const compareBtn = document.getElementById("compareBtn");
+  setBtnLabel(compareBtn, "⧉ " + (compareMode === "none" ? "Compare: None" : "Compare: " + COMPARE_OPTS[compareIdx]));
+  makeMenu(compareBtn, COMPARE_OPTS, (v) => {
+    try { sessionStorage.setItem("ppaCompare", COMPARE_KEYS[v]); } catch (e) {}
+    location.reload(); // data.js refetches with the compare window
+  }, compareIdx);
+
+  // % up / % down badges. Reads APP_DATA.deltas[key] (percent change vs the
+  // compare window); "–" when compare is off or the key is missing.
+  function renderDeltas() {
+    const deltas = (D && D.deltas) || {};
+    document.querySelectorAll(".stat-value .delta").forEach((el) => {
+      const d = el.dataset.delta != null ? deltas[el.dataset.delta] : undefined;
+      if (compareMode === "none" || d == null || !isFinite(d)) {
+        el.textContent = "–";
+        el.classList.remove("up", "down");
+        return;
+      }
+      const up = d >= 0;
+      el.textContent = (up ? "↑ " : "↓ ") + Math.abs(d).toFixed(1) + "%";
+      el.classList.toggle("up", up);
+      el.classList.toggle("down", !up);
+    });
+  }
+  renderDeltas();
   // Export — real CSV download of the data currently loaded.
   const exportBtn = document.getElementById("exportBtn");
   if (exportBtn) exportBtn.addEventListener("click", () => exportCsv());

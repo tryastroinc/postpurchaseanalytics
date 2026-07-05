@@ -41,7 +41,7 @@
       <div class="chart-head">
         <div>
           <div class="stat-label">Revenue</div>
-          <div class="stat-value"><span id="summaryRevenueTotal"></span> <span class="delta" id="summaryRevenueDelta">–</span></div>
+          <div class="stat-value"><span id="summaryRevenueTotal"></span> <span class="delta" data-delta="revenue">–</span></div>
         </div>
       </div>
       <div id="summaryRevenueChart"></div>
@@ -54,11 +54,11 @@
             <span class="stat-label">Funnels revenue <span class="info-dot" title="Revenue from post-purchase funnels">i</span></span>
             <button class="btn" onclick="location.href='funnels.html'">See More</button>
           </div>
-          <div class="stat-value"><span data-kpi="funnelsRevenue" data-fmt="money"></span> <span class="delta">0%</span></div>
+          <div class="stat-value"><span data-kpi="funnelsRevenue" data-fmt="money"></span> <span class="delta" data-delta="funnelsRevenue">0%</span></div>
         </div>
         <div class="kpi-block">
           <span class="stat-label">Funnels impressions <span class="info-dot" title="Offer impressions across funnels">i</span></span>
-          <div class="stat-value"><span data-kpi="funnelsImpressions" data-fmt="int"></span> <span class="delta">0%</span></div>
+          <div class="stat-value"><span data-kpi="funnelsImpressions" data-fmt="int"></span> <span class="delta" data-delta="funnelsImpressions">0%</span></div>
         </div>
       </div>
 
@@ -68,11 +68,11 @@
             <span class="stat-label">Product Page Revenue <span class="info-dot" title="Revenue from product page upsells">i</span></span>
             <button class="btn">See More</button>
           </div>
-          <div class="stat-value"><span data-kpi="productPageRevenue" data-fmt="money2"></span> <span class="delta">0%</span></div>
+          <div class="stat-value"><span data-kpi="productPageRevenue" data-fmt="money2"></span> <span class="delta" data-delta="productPageRevenue">0%</span></div>
         </div>
         <div class="kpi-block">
           <span class="stat-label">Product Page Impressions <span class="info-dot" title="Product page upsell impressions">i</span></span>
-          <div class="stat-value"><span data-kpi="productPageImpressions" data-fmt="int"></span> <span class="delta">0%</span></div>
+          <div class="stat-value"><span data-kpi="productPageImpressions" data-fmt="int"></span> <span class="delta" data-delta="productPageImpressions">0%</span></div>
         </div>
       </div>
 
@@ -82,11 +82,11 @@
             <span class="stat-label">Rokt Thanks revenue</span>
             <button class="btn">See More</button>
           </div>
-          <div class="stat-value"><span data-kpi="roktRevenue" data-fmt="money2"></span> <span class="delta">0%</span></div>
+          <div class="stat-value"><span data-kpi="roktRevenue" data-fmt="money2"></span> <span class="delta" data-delta="roktRevenue">0%</span></div>
         </div>
         <div class="kpi-block">
           <span class="stat-label">Rokt Thanks transactions</span>
-          <div class="stat-value"><span data-kpi="roktTransactions" data-fmt="int"></span> <span class="delta">0%</span></div>
+          <div class="stat-value"><span data-kpi="roktTransactions" data-fmt="int"></span> <span class="delta" data-delta="roktTransactions">0%</span></div>
         </div>
       </div>
     </div>
@@ -133,7 +133,7 @@
         <div class="chart-head">
           <div>
             <span class="stat-label">Revenue <span class="info-dot" title="Funnel revenue by offer type">i</span></span>
-            <div class="stat-value"><span id="funnelsRevenueTotal"></span> <span class="delta">0%</span></div>
+            <div class="stat-value"><span id="funnelsRevenueTotal"></span> <span class="delta" data-delta="funnelsTabRevenue">0%</span></div>
           </div>
           <button class="dl-btn" title="Download chart">⭳</button>
         </div>
@@ -148,11 +148,11 @@
             <span class="stat-label">Revenue per visit <span class="info-dot" title="Revenue divided by funnel visits">i</span></span>
             <div class="stat-split">
               <div>
-                <div class="stat-value"><span id="rpvOneClick"></span> <span class="delta">0%</span></div>
+                <div class="stat-value"><span id="rpvOneClick"></span> <span class="delta" data-delta="rpvOneClick">0%</span></div>
                 <div class="stat-sub">1-Click Upsells</div>
               </div>
               <div>
-                <div class="stat-value"><span id="rpvTyPage"></span> <span class="delta">0%</span></div>
+                <div class="stat-value"><span id="rpvTyPage"></span> <span class="delta" data-delta="rpvTyPage">0%</span></div>
                 <div class="stat-sub">TY Page</div>
               </div>
             </div>
@@ -166,7 +166,7 @@
         <div class="chart-head">
           <div>
             <span class="stat-label">Impressions <span class="info-dot" title="Offer impressions by type">i</span></span>
-            <div class="stat-value"><span id="impressionsTotal"></span> <span class="delta">0%</span></div>
+            <div class="stat-value"><span id="impressionsTotal"></span> <span class="delta" data-delta="impressions">0%</span></div>
           </div>
           <button class="dl-btn" title="Download chart">⭳</button>
         </div>
@@ -177,7 +177,7 @@
         <div class="chart-head">
           <div>
             <span class="stat-label">Conversion rate <span class="info-dot" title="Accepted offers over impressions">i</span></span>
-            <div class="stat-value"><span id="conversionTotal"></span> <span class="delta">0x</span></div>
+            <div class="stat-value"><span id="conversionTotal"></span> <span class="delta" data-delta="conversion">0x</span></div>
           </div>
           <button class="dl-btn" title="Download chart">⭳</button>
         </div>
@@ -188,7 +188,7 @@
         <div class="chart-head">
           <div>
             <span class="stat-label">Accepted offers <span class="info-dot" title="Offers accepted by type">i</span></span>
-            <div class="stat-value"><span id="acceptedTotal"></span> <span class="delta">0%</span></div>
+            <div class="stat-value"><span id="acceptedTotal"></span> <span class="delta" data-delta="accepted">0%</span></div>
           </div>
           <button class="dl-btn" title="Download chart">⭳</button>
         </div>
@@ -199,7 +199,7 @@
         <div class="chart-head">
           <div>
             <span class="stat-label">Average upsell value <span class="info-dot" title="Average value of accepted upsells">i</span></span>
-            <div class="stat-value"><span id="avgValueTotal"></span> <span class="delta">0%</span></div>
+            <div class="stat-value"><span id="avgValueTotal"></span> <span class="delta" data-delta="avgValue">0%</span></div>
           </div>
           <button class="dl-btn" title="Download chart">⭳</button>
         </div>

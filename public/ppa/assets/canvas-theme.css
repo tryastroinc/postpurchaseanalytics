@@ -91,6 +91,9 @@ html[data-theme="dark"] .badge.inactive {
   color: #eab308;
 }
 
+/* ---- delta badges ---- */
+html[data-theme="dark"] .stat-value .delta.down { color: #f87171; }
+
 /* ---- links / misc ---- */
 html[data-theme="dark"] .page-footnote a { color: #6ea8ff; }
 

@@ -218,6 +218,7 @@ a { color: inherit; }
   color: var(--ink-muted);
 }
 .stat-value .delta.up { color: var(--good); }
+.stat-value .delta.down { color: #c2352b; }
 .stat-split { display: flex; gap: 28px; }
 .stat-sub { font-size: 12px; color: var(--ink-secondary); margin-top: 2px; }
 .stat-divider {
