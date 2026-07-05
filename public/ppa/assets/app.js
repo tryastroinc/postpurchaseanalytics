@@ -234,10 +234,6 @@
       height: 240,
     });
 
-    const KPI_FMT = { money: (v) => F.money(v, 2), money2: (v) => F.money(v, 2), int: F.int };
-    document.querySelectorAll("[data-kpi]").forEach((el) => {
-      el.textContent = KPI_FMT[el.dataset.fmt](D.summary.kpis[el.dataset.kpi].value);
-    });
 
     // --- funnels tab ---
     const sel = document.getElementById("funnelSelect");
