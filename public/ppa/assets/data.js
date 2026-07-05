@@ -141,22 +141,45 @@
       const v = sessionStorage.getItem("ppaVariant");
       if (v && v !== "all") variant = "&variant=" + encodeURIComponent(v);
     } catch (e) {}
-    return fetch("/api/analytics?range=" + range + custom + compare, { credentials: "same-origin", cache: "no-store" })
-      .then((r) => {
+    const url = "/api/analytics?range=" + range + custom + compare + variant;
+
+    const publish = (raw) => {
+      window.APP_DATA = hydrate(raw);
+      window.APP_DATA.__ready = true;
+      window.dispatchEvent(new Event("ppa:data"));
+    };
+    const fetchFresh = () =>
+      fetch(url, { credentials: "same-origin", cache: "no-store" }).then((r) => {
         if (!r.ok) throw new Error("HTTP " + r.status);
         return r.json();
-      })
+      });
+
+    // Stale-while-revalidate: switching pages re-renders from the last
+    // payload instantly (no blank-then-pop), while the cache refreshes in
+    // the background for the next navigation. Any filter change (range /
+    // compare / variant) changes the URL → cache miss → fresh fetch.
+    const CACHE_TTL = 60 * 1000;
+    const cacheKey = "ppaCache:" + url;
+    let cached = null;
+    try { cached = JSON.parse(sessionStorage.getItem(cacheKey) || "null"); } catch (e) {}
+    if (cached && cached.d && Date.now() - cached.t < CACHE_TTL) {
+      publish(cached.d);
+      fetchFresh()
+        .then((j) => { try { sessionStorage.setItem(cacheKey, JSON.stringify({ t: Date.now(), d: j })); } catch (e) {} })
+        .catch(() => {});
+      return Promise.resolve();
+    }
+
+    return fetchFresh()
       .then((j) => {
-        window.APP_DATA = hydrate(j);
-        window.APP_DATA.__ready = true;
+        try { sessionStorage.setItem(cacheKey, JSON.stringify({ t: Date.now(), d: j })); } catch (e) {}
+        publish(j);
       })
       .catch((e) => {
         const d = emptyData();
         d.__ready = true;
         d.__error = String((e && e.message) || e);
         window.APP_DATA = d;
-      })
-      .then(() => {
         window.dispatchEvent(new Event("ppa:data"));
       });
   };

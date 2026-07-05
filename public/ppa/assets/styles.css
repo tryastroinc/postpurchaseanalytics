@@ -308,6 +308,9 @@ body.with-sidebar { padding-left: 216px; }
 }
 .chart-wrap { position: relative; }
 .chart-wrap svg { display: block; width: 100%; height: auto; }
+/* reserve chart space before data arrives so cards don't collapse
+   and jump when the fetch resolves */
+.chart-card > div:last-child:empty { min-height: 200px; }
 
 /* legend */
 .legend {
