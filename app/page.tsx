@@ -24,7 +24,7 @@ export default async function HomePage() {
           light-mode users don't get a dark flash (and vice versa) */}
       <script
         dangerouslySetInnerHTML={{
-          __html: `try{var t=localStorage.getItem("ppa-theme");document.documentElement.style.background=t==="light"?"#f9f9f7":"#1a1a1a";}catch(e){}`,
+          __html: `try{var t=localStorage.getItem("ppa-theme")==="light"?"light":"dark";document.documentElement.style.background=t==="light"?"#f9f9f7":"#1a1a1a";document.documentElement.style.colorScheme=t;}catch(e){}`,
         }}
       />
       <iframe
