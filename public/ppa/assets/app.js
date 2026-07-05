@@ -303,7 +303,6 @@
 
     document.getElementById("funnelsRevenueTotal").textContent = F.money(D.funnels.revenueTotal, 2);
     document.getElementById("rpvOneClick").textContent = F.money(D.funnels.revenuePerVisit.oneClick, 2);
-    document.getElementById("rpvTyPage").textContent = F.money(D.funnels.revenuePerVisit.tyPage, 2);
     document.getElementById("impressionsTotal").textContent = F.int(D.funnels.impressionsTotal);
     document.getElementById("conversionTotal").textContent = D.funnels.conversionRate + "%";
     document.getElementById("acceptedTotal").textContent = F.int(D.funnels.acceptedOffersTotal);
