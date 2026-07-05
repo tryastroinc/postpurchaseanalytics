@@ -1,16 +1,41 @@
 /* ============================================================
-   Light/dark theme switcher.
-   - Load this in <head> (before body paints) so there's no flash.
-   - Dark is the default (matches the TryAstro canvas); the choice
-     persists in localStorage under "ppa-theme" and is shared by
-     all pages (index / funnels / builder).
-   - Any element with [data-theme-toggle] becomes a sun/moon
-     segmented pill (see .theme-switch in styles.css).
-   - URL override: ?theme=light|dark (also persists).
+   Light/dark theme switcher — single authority for the WHOLE
+   theme system.
+
+   Architecture note: the board runs inside a same-origin iframe
+   (app/page.tsx wrapper), so there are TWO documents whose
+   background and color-scheme must agree at all times. If they
+   drift, Chrome paints an opaque white canvas behind the iframe
+   (its behavior when embedder/embedded color-schemes differ) —
+   that is the "flash"/"glitch". Every apply() call therefore
+   paints BOTH documents together.
+
+   - Load this in <head> BEFORE the stylesheets: first paint is
+     already in the right theme.
+   - Dark is the default; persisted in localStorage("ppa-theme"),
+     shared by all pages. URL override: ?theme=light|dark.
+   - Any element with [data-theme-toggle] becomes a sun/moon pill.
    ============================================================ */
 
 (function () {
   var KEY = "ppa-theme";
+  var BG = { dark: "#1a1a1a", light: "#f9f9f7" };
+
+  function paintDoc(doc, t) {
+    if (!doc) return;
+    doc.documentElement.dataset.theme = t;
+    doc.documentElement.style.background = BG[t];
+    doc.documentElement.style.colorScheme = t;
+    if (doc.body) doc.body.style.background = BG[t];
+  }
+
+  function apply(t) {
+    paintDoc(document, t);
+    // keep the embedding wrapper in lockstep (same-origin iframe)
+    if (window.parent && window.parent !== window) {
+      try { paintDoc(window.parent.document, t); } catch (e) { /* cross-origin: skip */ }
+    }
+  }
 
   // precedence: ?theme=light|dark (also persists) → saved choice → dark
   var fromUrl = new URLSearchParams(location.search).get("theme");
@@ -19,14 +44,7 @@
   try { saved = localStorage.getItem(KEY); } catch (e) { /* private mode etc. */ }
   var theme = fromUrl || (saved === "light" || saved === "dark" ? saved : "dark");
   if (fromUrl) { try { localStorage.setItem(KEY, fromUrl); } catch (e) {} }
-  document.documentElement.dataset.theme = theme;
-  // paint the root immediately so navigation never flashes the wrong
-  // theme while stylesheets load (this script runs before the CSS links).
-  // color-scheme matters most: without it Chrome paints a WHITE canvas
-  // between page loads in dark mode (and iframes get a white backdrop
-  // when their color-scheme differs from the embedder's).
-  document.documentElement.style.background = theme === "dark" ? "#1a1a1a" : "#f9f9f7";
-  document.documentElement.style.colorScheme = theme;
+  apply(theme);
 
   var SUN =
     '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">' +
@@ -38,27 +56,25 @@
     '<path d="M20.4 14.2A8.6 8.6 0 0 1 9.8 3.6 8.6 8.6 0 1 0 20.4 14.2z"/>' +
     "</svg>";
 
-  function paint() {
+  function paintButtons() {
     var dark = document.documentElement.dataset.theme === "dark";
     document.querySelectorAll("[data-theme-toggle] button").forEach(function (b) {
-      b.setAttribute(
-        "aria-pressed",
-        String(b.dataset.mode === (dark ? "dark" : "light"))
-      );
+      b.setAttribute("aria-pressed", String(b.dataset.mode === (dark ? "dark" : "light")));
     });
   }
 
   window.setPpaTheme = function (t) {
-    document.documentElement.dataset.theme = t;
-    // keep the anti-flash inline paint in sync with the live toggle,
-    // otherwise the old color lingers wherever the body doesn't cover
-    document.documentElement.style.background = t === "dark" ? "#1a1a1a" : "#f9f9f7";
-    document.documentElement.style.colorScheme = t;
+    if (t !== "light" && t !== "dark") return;
+    apply(t);
     try { localStorage.setItem(KEY, t); } catch (e) {}
-    paint();
+    paintButtons();
   };
 
+  // body isn't parsed yet when this runs from <head>; paint it as soon
+  // as it exists so no element ever shows the browser-default background
   document.addEventListener("DOMContentLoaded", function () {
+    paintDoc(document, document.documentElement.dataset.theme);
+
     document.querySelectorAll("[data-theme-toggle]").forEach(function (wrap) {
       wrap.innerHTML =
         '<button type="button" data-mode="light" title="Light mode" aria-label="Light mode">' + SUN + "</button>" +
@@ -69,6 +85,6 @@
         });
       });
     });
-    paint();
+    paintButtons();
   });
 })();
